@@ -20,4 +20,18 @@ class UserAchievementDetail(BaseModel):
     user_id: str
     achievement_code: str
     achievement_name: str
-    achievement_description: str 
+    achievement_description: str
+
+class UserRegisterRequest(BaseModel):
+    email: str
+
+class UserLoginRequest(BaseModel):
+    email: str
+    otp: str
+
+class AuthResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+
+    

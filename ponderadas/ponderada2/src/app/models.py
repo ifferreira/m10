@@ -17,3 +17,10 @@ class UserAchievement(Base):
     __table_args__ = (UniqueConstraint('user_id', 'achievement_id', name='_user_achievement_uc'),)
     
     achievement = relationship("Achievement") 
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    otp_secret = Column(String, nullable=True)
+

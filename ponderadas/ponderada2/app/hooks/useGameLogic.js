@@ -6,7 +6,7 @@ import { ACHIEVEMENTS } from '../constants/achievementConstants';
 import { unlockAchievement } from '../utils/achievementAPI';
 import { ENV } from '../env';
 
-export function useGameLogic(playDoubtSound, playLieSound, playTruthSound, userId) {
+export function useGameLogic(playDoubtSound, playLieSound, playTruthSound, userId, token, apiBaseUrl) {
   const [hands, setHands] = useState([[], [], []]);
   const [discardPile, setDiscardPile] = useState([]);
   const [currentTurnValue, setCurrentTurnValue] = useState('A');
@@ -92,17 +92,17 @@ export function useGameLogic(playDoubtSound, playLieSound, playTruthSound, userI
         setNeverLied(false);
         if (!firstLieUnlocked) {
           unlockAchievement({
-            userId,
+            token,
             achievementCode: ACHIEVEMENTS.PRIMEIRA_MENTIRA,
-            apiBaseUrl: ENV.ACHIEVEMENT_API_BASE_URL
+            apiBaseUrl
           });
           setFirstLieUnlocked(true);
         }
         if (cards.length >= 4 && !caraDePauUnlocked) {
           unlockAchievement({
-            userId,
+            token,
             achievementCode: ACHIEVEMENTS.CARA_DE_PAU,
-            apiBaseUrl: ENV.ACHIEVEMENT_API_BASE_URL
+            apiBaseUrl
           });
           setCaraDePauUnlocked(true);
         }
@@ -117,23 +117,23 @@ export function useGameLogic(playDoubtSound, playLieSound, playTruthSound, userI
       if (playerIndex === PLAYER_HUMAN) {
         if (hands[PLAYER_HUMAN].length === 1) {
           unlockAchievement({
-            userId,
+            token,
             achievementCode: ACHIEVEMENTS.POR_UM_FIO,
-            apiBaseUrl: ENV.ACHIEVEMENT_API_BASE_URL
+            apiBaseUrl
           });
         }
         if (neverLied) {
           unlockAchievement({
-            userId,
+            token,
             achievementCode: ACHIEVEMENTS.HONESTIDADE_BRUTAL,
-            apiBaseUrl: ENV.ACHIEVEMENT_API_BASE_URL
+            apiBaseUrl
           });
         }
         if (liedAllGame) {
           unlockAchievement({
-            userId,
+            token,
             achievementCode: ACHIEVEMENTS.MESTRE_DO_BLEFE,
-            apiBaseUrl: ENV.ACHIEVEMENT_API_BASE_URL
+            apiBaseUrl
           });
         }
       }
@@ -185,9 +185,9 @@ export function useGameLogic(playDoubtSound, playLieSound, playTruthSound, userI
       lastPlay.cards.length >= 3
     ) {
       unlockAchievement({
-        userId,
+        token,
         achievementCode: ACHIEVEMENTS.DETETIVE,
-        apiBaseUrl: ENV.ACHIEVEMENT_API_BASE_URL
+        apiBaseUrl
       });
     }
   }

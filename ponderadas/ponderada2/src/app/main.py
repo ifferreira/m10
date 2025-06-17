@@ -1,10 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from dotenv import load_dotenv
 
 from . import models
 from .database import engine, SessionLocal
 from .routes import router
+
+# Carrega as variáveis de ambiente do arquivo .env
+load_dotenv()
 
 # Cria as tabelas no banco de dados (se não existirem)
 models.Base.metadata.create_all(bind=engine)

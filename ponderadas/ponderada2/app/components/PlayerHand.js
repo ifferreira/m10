@@ -25,6 +25,7 @@ export default function PlayerHand({ hand, selectedCardIds, onCardPress }) {
       <Text className="text-text font-bold text-center text-base mb-[0px] mt-[10px]">Sua Mão ({hand.length} cartas)</Text>
       <View className="h-[200px] overflow-hidden mt-[9px]">
         <FlatList
+          key={numColumns}
           data={hand}
           numColumns={numColumns}
           contentContainerStyle={{ alignItems: 'center' }}

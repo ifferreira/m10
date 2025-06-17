@@ -10,10 +10,8 @@ import PlayerHand from './components/PlayerHand';
 import GameActions from './components/GameActions';
 import GameOverOverlay from './components/GameOverOverlay';
 
-export default function DuvidoGame() {
-  const [userId, setUserId] = useState('player1');
-  const [userInput, setUserInput] = useState('player1');
-  const [userSelected, setUserSelected] = useState(false);
+export default function DuvidoGame({ token, email, apiBaseUrl }) {
+  const userId = email;
 
   const { playDoubtSound, playLieSound, playTruthSound } = useAudio();
   const {
@@ -29,27 +27,7 @@ export default function DuvidoGame() {
     startNewGame,
     playCards,
     checkDoubt,
-  } = useGameLogic(playDoubtSound, playLieSound, playTruthSound, userId);
-
-  if (!userSelected) {
-    return (
-      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#10451d' }}>
-        <Text style={{ color: 'white', fontSize: 22, marginBottom: 16 }}>Digite seu nome de jogador:</Text>
-        <TextInput
-          value={userInput}
-          onChangeText={setUserInput}
-          style={{ backgroundColor: 'white', borderRadius: 8, padding: 12, width: 220, marginBottom: 16, fontSize: 18 }}
-          placeholder="Seu nome ou ID"
-        />
-        <TouchableOpacity
-          style={{ backgroundColor: '#00c853', padding: 14, borderRadius: 8 }}
-          onPress={() => { setUserId(userInput || 'player1'); setUserSelected(true); }}
-        >
-          <Text style={{ color: '#10451d', fontWeight: 'bold', fontSize: 18 }}>Entrar</Text>
-        </TouchableOpacity>
-      </SafeAreaView>
-    );
-  }
+  } = useGameLogic(playDoubtSound, playLieSound, playTruthSound, userId, token, apiBaseUrl);
 
   function handlePlayerPlay() {
     if (selectedCardIds.length === 0) {
